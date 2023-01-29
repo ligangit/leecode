@@ -62,28 +62,43 @@ class Solution {
 //        }
 //        Arrays.sort(nums1);
 
-        int k = m + n;
-        int temp[] = new int[k];
-        int n1 = 0;
-        int n2 = 0;
-        for (int index = 0, num1Index = 0, num2Index = 0; index < k; index++) {
-            if (num1Index >= m) {
-                // 当nums1数组已经取完，则直接取nums2中的数据
-                temp[index] = nums2[num2Index++];
-            } else if (num2Index >= n) {
-                // 当nums2数组已经取完，则直接取nums1中的数据
-                temp[index] = nums1[num1Index++];
+//        int k = m + n;
+//        int temp[] = new int[k];
+//        int n1 = 0;
+//        int n2 = 0;
+//        for (int index = 0, num1Index = 0, num2Index = 0; index < k; index++) {
+//            if (num1Index >= m) {
+//                // 当nums1数组已经取完，则直接取nums2中的数据
+//                temp[index] = nums2[num2Index++];
+//            } else if (num2Index >= n) {
+//                // 当nums2数组已经取完，则直接取nums1中的数据
+//                temp[index] = nums1[num1Index++];
+//
+//            } else if (nums1[num1Index] <= nums2[num2Index]) {
+//                // 当nums1的数据小于等于nums2中的数据，将nums1中的值赋值给temp
+//                temp[index] = nums1[num1Index++];
+//            } else {
+//                temp[index] = nums2[num2Index++];
+//            }
+//        }
+//        for (int i = 0; i < k; i++) {
+//            nums1[i] = temp[i];
+//        }
 
-            } else if (nums1[num1Index] <= nums2[num2Index]) {
-                // 当nums1的数据小于等于nums2中的数据，将nums1中的值赋值给temp
-                temp[index] = nums1[num1Index++];
+        for (int i = m + n - 1, num1Index = m-1, num2Index = n-1; i >= 0; i--) {
+            if (num1Index < 0) {
+                // nums1已经取完，则取nums2的值，下标为0，表示还有数据，所以需要小于0
+                nums1[i] = nums2[num2Index--];
+            } else if (num2Index < 0) {
+                // nums2已经取完，则取nums1的值
+                nums1[i] = nums1[num1Index--];
+            } else if (nums1[num1Index] < nums2[num2Index]) {
+                nums1[i] = nums2[num2Index--];
             } else {
-                temp[index] = nums2[num2Index++];
+                nums1[i] = nums1[num1Index--];
             }
         }
-        for (int i = 0; i < k; i++) {
-            nums1[i] = temp[i];
-        }
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
