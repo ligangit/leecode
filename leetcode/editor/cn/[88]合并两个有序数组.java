@@ -57,10 +57,33 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        for (int i = 0; i < nums2.length; i++){
-            nums1[i + m] = nums2[i];
+//        for (int i = 0; i < nums2.length; i++){
+//            nums1[i + m] = nums2[i];
+//        }
+//        Arrays.sort(nums1);
+
+        int k = m + n;
+        int temp[] = new int[k];
+        int n1 = 0;
+        int n2 = 0;
+        for (int index = 0, num1Index = 0, num2Index = 0; index < k; index++) {
+            if (num1Index >= m) {
+                // 当nums1数组已经取完，则直接取nums2中的数据
+                temp[index] = nums2[num2Index++];
+            } else if (num2Index >= n) {
+                // 当nums2数组已经取完，则直接取nums1中的数据
+                temp[index] = nums1[num1Index++];
+
+            } else if (nums1[num1Index] <= nums2[num2Index]) {
+                // 当nums1的数据小于等于nums2中的数据，将nums1中的值赋值给temp
+                temp[index] = nums1[num1Index++];
+            } else {
+                temp[index] = nums2[num2Index++];
+            }
         }
-        Arrays.sort(nums1);
+        for (int i = 0; i < k; i++) {
+            nums1[i] = temp[i];
+        }
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
