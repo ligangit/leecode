@@ -46,20 +46,46 @@
 // Related Topics 数组 哈希表 👍 17212 👎 0
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
+    /**
+     * 暴力穷举
+     * @param nums
+     * @param target
+     * @return
+     */
+//    public int[] twoSum(int[] nums, int target) {
+//        int[] result = new int[2];
+//        for (int i = 0; i < nums.length-1; i++) {
+//            for (int j = i + 1; j < nums.length; j++) {
+//                if (nums[i] + nums[j] == target) {
+//                    result[0] = i;
+//                    result[1] = j;
+//                    return result;
+//                }
+//            }
+//        }
+//        return result;
+//    }
+
+    /**
+     * 哈希表
+     * @param nums
+     * @param target
+     * @return
+     */
     public int[] twoSum(int[] nums, int target) {
-        int[] result = new int[2];
-        for (int i = 0; i < nums.length-1; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[i] + nums[j] == target) {
-                    result[0] = i;
-                    result[1] = j;
-                    return result;
-                }
+        Map<Integer, Integer> hashTable = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (hashTable.containsKey(target -nums[i]) ){
+                return new int[] {hashTable.get(target -nums[i]), i};
             }
+            hashTable.put(nums[i], i);
         }
-        return result;
+        return new int[0];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
