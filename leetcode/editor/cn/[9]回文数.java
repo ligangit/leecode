@@ -52,18 +52,14 @@ class Solution {
         if (x < 0) {
             return false;
         }
-        if (x < 10) {
-            return true;
+        int cur = 0;
+        int num = x;
+        while (num != 0) {
+            cur = cur * 10 + num % 10;
+            num /= 10;
         }
-        String s = x + "";
-        char[] charArray = s.toCharArray();
-        for (int j = 0; j <= (charArray.length) / 2; j++) {
-            if (charArray[j] != charArray[charArray.length - 1 - j]) {
 
-                return false;
-            }
-        }
-        return true;
+        return cur==x;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
