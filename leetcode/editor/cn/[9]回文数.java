@@ -55,17 +55,11 @@ class Solution {
         if (x < 10) {
             return true;
         }
-        int[] idx = new int[32];
-        int i = 0;
-        while (x >= 10) {
-            int g = x % 10;
-            idx[i] = g;
-            x = x / 10;
-            i++;
-        }
-        idx[i] = x;
-        for (int j = 0; j <= (i+1) / 2; j++) {
-            if (idx[j] != idx[i - j]) {
+        String s = x + "";
+        char[] charArray = s.toCharArray();
+        for (int j = 0; j <= (charArray.length) / 2; j++) {
+            if (charArray[j] != charArray[charArray.length - 1 - j]) {
+
                 return false;
             }
         }
