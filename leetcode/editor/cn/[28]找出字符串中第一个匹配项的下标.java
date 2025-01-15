@@ -35,8 +35,35 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int strStr(String haystack, String needle) {
-        // 最基础的方式
-        return haystack.indexOf(needle);
+        // 利用jdk自带的最基础的方式
+//        return haystack.indexOf(needle);
+
+        // 自己写的
+        if (needle.length() > haystack.length()) {
+            return -1;
+        }
+        char[] haystackCharArray = haystack.toCharArray();
+        char[] needleCharArray = needle.toCharArray();
+
+        for (int i = 0; i < haystack.length(); i++) {
+            int endIndex = i + needle.length();
+            if (endIndex > haystack.length()) {
+                return -1;
+            }
+            boolean flag = true;
+            for (int j = 0; j < needle.length(); j++) {
+                if (haystackCharArray[j + i] != needleCharArray[j]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                return i;
+            }
+
+        }
+        return -1;
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
