@@ -41,7 +41,9 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -61,16 +63,36 @@ import java.util.List;
  */
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
+        // 递归
+//        List<Integer> result = new ArrayList<>();
+//        if (null == root) {
+//            return result;
+//        }
+//        if (root.left != null) {
+//            result.addAll(inorderTraversal(root.left));
+//        }
+//        result.add(root.val);
+//        if (root.right != null) {
+//            result.addAll(inorderTraversal(root.right));
+//        }
+//        return result;
+        // 迭代算法
         List<Integer> result = new ArrayList<>();
         if (null == root) {
             return result;
         }
-        if (root.left != null) {
-            result.addAll(inorderTraversal(root.left));
-        }
-        result.add(root.val);
-        if (root.right != null) {
-            result.addAll(inorderTraversal(root.right));
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        TreeNode temp = root;
+        while (temp != null || !deque.isEmpty()) {
+
+            if (temp != null) {
+                deque.push(temp);
+                temp = temp.left;
+            } else {
+                TreeNode pop = deque.pop();
+                result.add(pop.val);
+                temp = pop.right;
+            }
         }
         return result;
 
