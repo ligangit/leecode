@@ -33,6 +33,13 @@
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+import java.util.Stack;
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -53,35 +60,72 @@ class Solution {
         if (null == root) {
             return true;
         }
-        return isSame(root.left, root.right);
-    }
+        // 递归的方式
+//        return isSame(root.left, root.right);
 
-    public boolean isSame(TreeNode p, TreeNode q) {
-        if (null == p && null == q) {
-            return true;
-        }
-        if (null == p || null == q) {
-            return false;
-        }
-        if (p.val != q.val) {
-            return false;
-        }
-        return isSame(p.right, q.left) && isSame(p.left, q.right);
+        // 栈的方式
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root.left);
+        stack.push(root.right);
+        // 同时把左右节点放入栈中
+        TreeNode left;
+        TreeNode right;
+        while (!stack.isEmpty()) {
+            right = stack.pop();
+            left = stack.pop();
+            // 都是空，那么就是true，对比下一个元素
+            if (right == null && left == null) {
+                continue;
+            }
+            // 一个为空，一个有值，那么就是不一样的
+            if (right == null || left == null) {
+                return false;
+            }
+            // 值不一样，那么也是不对称的
+            if (right.val != left.val) {
+                return false;
+            }
+            // 需要同时塞入当前对称位置的节点
+            // 把当前左节点的左节点放入栈
+            stack.push(left.left);
+            // 把当前右节点的右节点放入栈
+            stack.push(right.right);
 
+            // 把当前左节点的右节点放入栈
+            stack.push(left.right);
+            // 把当前右节点的左节点放入栈
+            stack.push(right.left);
+        }
+        return true;
     }
-}
 //
-// public class TreeNode {
-//   int val;
-//   TreeNode left;
-//    TreeNode right;
-//    TreeNode() {}
-//    TreeNode(int val) { this.val = val; }
-//   TreeNode(int val, TreeNode left, TreeNode right) {
-//       int t = val;
-//        this.left = left;
-//        this.right = right;
-//   }
-// }
+//    public boolean isSame(TreeNode p, TreeNode q) {
+//        if (null == p && null == q) {
+//            return true;
+//        }
+//        if (null == p || null == q) {
+//            return false;
+//        }
+//        if (p.val != q.val) {
+//            return false;
+//        }
+//        return isSame(p.right, q.left) && isSame(p.left, q.right);
+//
+//    }
+
+}
+
+ public class TreeNode {
+   int val;
+   TreeNode left;
+    TreeNode right;
+    TreeNode() {}
+    TreeNode(int val) { this.val = val; }
+   TreeNode(int val, TreeNode left, TreeNode right) {
+       int t = val;
+        this.left = left;
+        this.right = right;
+   }
+ }
 //leetcode submit region end(Prohibit modification and deletion)
 
