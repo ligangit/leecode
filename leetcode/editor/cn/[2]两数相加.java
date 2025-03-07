@@ -54,27 +54,52 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return addTwoNumbers(0, l1, l2);
-    }
 
-    public ListNode addTwoNumbers(int temp, ListNode l1, ListNode l2) {
-        if (null == l1 && null == l2 && temp <= 0) {
-            return null;
+        // 循环遍历
+        ListNode temp = new ListNode(0);
+        // 返回值指向头结点
+        ListNode res = temp;
+        ListNode p = l1;
+        ListNode q = l2;
+        int tempval = 0;
+        while (p != null || q != null) {
+            int x = p == null ? 0 : p.val;
+            int y = q == null ? 0 : q.val;
+            tempval += x + y;
+            temp.next = new ListNode(tempval % 10);
+            tempval = tempval / 10;
+            p = p == null ? null : p.next;
+            q = q == null ? null : q.next;
+            // 不断的往后面添加节点
+            temp = temp.next;
         }
-        ListNode result = new ListNode();
-        int h = temp;
-        if (null != l1) {
-            h = h + l1.val;
+        if (tempval > 0) {
+            temp.next = new ListNode(tempval % 10);
         }
-        if (null != l2) {
-            h = h + l2.val;
-        }
-        temp = h / 10;
-        h = h % 10;
-        result.val = h;
-        result.next = addTwoNumbers(temp, null == l1 ? null : l1.next, null == l2 ? null : l2.next);
-        return result;
+        return res.next;
+
+        // 下面是递归的形式实现
+//        return addTwoNumbers(0, l1, l2);
     }
+//
+//    public ListNode addTwoNumbers(int temp, ListNode l1, ListNode l2) {
+//        if (null == l1 && null == l2 && temp <= 0) {
+//            return null;
+//        }
+//        ListNode result = new ListNode();
+//        int h = temp;
+//        if (null != l1) {
+//            h = h + l1.val;
+//        }
+//        if (null != l2) {
+//            h = h + l2.val;
+//        }
+//        temp = h / 10;
+//        h = h % 10;
+//        result.val = h;
+//        result.next = addTwoNumbers(temp, null == l1 ? null : l1.next, null == l2 ? null : l2.next);
+//        return result;
+//    }
 }
 //
 // public class ListNode {
