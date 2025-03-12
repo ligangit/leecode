@@ -20,6 +20,9 @@ out/
 *.iml
 *.ipr
 
+### leetcode中其他人提交的答案解析文件
+*.lcv
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
