@@ -69,7 +69,7 @@ class Solution {
             }
             res = res * 10 + temp;
             x /= 10;
-
+            
         }
         return res;
     }
