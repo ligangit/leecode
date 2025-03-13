@@ -49,17 +49,22 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public boolean isPalindrome(int x) {
+
+        // 负数肯定不是的
         if (x < 0) {
             return false;
         }
-        int cur = 0;
+        int res = 0;
         int num = x;
-        while (num != 0) {
-            cur = cur * 10 + num % 10;
-            num /= 10;
+        while (x != 0) {
+            // 判断翻转之后，是否超过了int的数值的限制
+            if (res > 214748364 || (res == 214748364 && x > 7)) {
+                return false;
+            }
+            res = res * 10 + x % 10;
+            x = x / 10;
         }
-
-        return cur==x;
+        return res == num;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
